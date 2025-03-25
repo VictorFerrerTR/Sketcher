@@ -84,7 +84,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if (!m_wndReBar.Create(this, CBRS_HIDE_INPLACE, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | CBRS_TOP, AFX_IDW_REBAR))
 		return false;
 
-	m_wndReBar.AddBar(&m_wndToolBar, nullptr, nullptr, RBBS_NOGRIPPER);
+	m_wndReBar.AddBar(&m_wndToolBar, nullptr, nullptr, RBBS_NOGRIPPER | RBBS_USECHEVRON);
 	m_wndReBar.AddBar(&m_wndGeomToolBar, nullptr, nullptr, RBBS_NOGRIPPER);
 	m_wndReBar.AddBar(&m_wndColorToolBar, nullptr, nullptr, RBBS_NOGRIPPER);
 	//RecalcLayout();
