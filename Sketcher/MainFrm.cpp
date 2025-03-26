@@ -100,6 +100,14 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	}
 	m_wndStatusBar.SetIndicators(indicators, sizeof(indicators)/sizeof(UINT));
 
+	SetWindowTheme(m_wndReBar.GetSafeHwnd(), L" ", L" ");
+
+	int bandIndex1 = m_wndReBar.GetReBarCtrl().IDToIndex(m_wndToolBar.GetDlgCtrlID());
+	int bandIndex2 = m_wndReBar.GetReBarCtrl().IDToIndex(m_wndGeomToolBar.GetDlgCtrlID());
+
+	auto bandCount = m_wndReBar.GetReBarCtrl().GetBandCount();
+	m_wndReBar.GetReBarCtrl().MaximizeBand(1);
+
 	//// TODO: Delete these three lines if you don't want the toolbar to be dockable
 	//m_wndToolBar.EnableDocking(CBRS_ALIGN_ANY);
 	//EnableDocking(CBRS_ALIGN_ANY);
