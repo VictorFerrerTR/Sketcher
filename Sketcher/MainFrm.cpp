@@ -93,6 +93,18 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	//m_wndToolBar.EnableDocking(0);
 	//m_wndToolBar.SetBarStyle(m_wndToolBar.GetBarStyle() | CBRS_TOOLTIPS | CBRS_FLYBY);
 
+	CReBarCtrl& reBarCtrl = m_wndReBar.GetReBarCtrl();
+	int bandIndex2 = 1;
+	REBARBANDINFO bandInfo;
+	ZeroMemory(&bandInfo, sizeof(REBARBANDINFO));
+	bandInfo.cbSize = sizeof(REBARBANDINFO);
+	bandInfo.fMask = RBBIM_SIZE | RBBIM_IDEALSIZE | RBBIM_CHILD | RBBIM_CHILDSIZE ;
+	bool result;// = reBarCtrl.GetBandInfo(bandIndex2, &bandInfo);
+	bandInfo.cxIdeal = 0;
+	bandInfo.cxMinChild = m_wndGeomToolBar.CalcFixedLayout(false, m_wndGeomToolBar.m_dwStyle & CBRS_ORIENT_HORZ).cx;
+	result = (BOOL)::DefWindowProc(m_wndReBar.m_hWnd, RB_SETBANDINFO, bandIndex2, (LPARAM)&bandInfo);//reBarCtrl.SetBandInfo(bandIndex2, &bandInfo);
+	result = reBarCtrl.GetBandInfo(bandIndex2, &bandInfo);
+
 	if (!m_wndStatusBar.Create(this))
 	{
 		TRACE0("Failed to create status bar\n");
@@ -103,7 +115,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	SetWindowTheme(m_wndReBar.GetSafeHwnd(), L" ", L" ");
 
 	int bandIndex1 = m_wndReBar.GetReBarCtrl().IDToIndex(m_wndToolBar.GetDlgCtrlID());
-	int bandIndex2 = m_wndReBar.GetReBarCtrl().IDToIndex(m_wndGeomToolBar.GetDlgCtrlID());
+	//int bandIndex2 = m_wndReBar.GetReBarCtrl().IDToIndex(m_wndGeomToolBar.GetDlgCtrlID());
 
 	auto bandCount = m_wndReBar.GetReBarCtrl().GetBandCount();
 	m_wndReBar.GetReBarCtrl().MaximizeBand(1);
