@@ -59,7 +59,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	//	return -1;      // fail to create
 	//}
 
-	if (!m_wndToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD | WS_VISIBLE | CBRS_ALIGN_TOP | CBRS_TOOLTIPS | CBRS_FLYBY) ||
+	if (!m_wndToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD | WS_VISIBLE | CBRS_ALIGN_TOP | CBRS_TOOLTIPS | CBRS_FLYBY | CBRS_SIZE_DYNAMIC) ||
 		!m_wndToolBar.LoadToolBar(IDR_MAINFRAME))
 	{
 		TRACE0("Failed to create toolbar\n");
@@ -73,20 +73,20 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		return -1;      // fail to create
 	}
 
-	if (!m_wndColorToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD | WS_VISIBLE | CBRS_ALIGN_TOP | CBRS_TOOLTIPS | CBRS_FLYBY) ||
-		!m_wndColorToolBar.LoadToolBar(IDR_TOOLBAR2))
-	{
-		TRACE0("Failed to create toolbar\n");
-		return -1;      // fail to create
-	}
+	//if (!m_wndColorToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD | WS_VISIBLE | CBRS_ALIGN_TOP | CBRS_TOOLTIPS | CBRS_FLYBY) ||
+	//	!m_wndColorToolBar.LoadToolBar(IDR_TOOLBAR2))
+	//{
+	//	TRACE0("Failed to create toolbar\n");
+	//	return -1;      // fail to create
+	//}
 
 	// Add all the bars
 	if (!m_wndReBar.Create(this, CBRS_HIDE_INPLACE, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | CBRS_TOP, AFX_IDW_REBAR))
 		return false;
 
-	m_wndReBar.AddBar(&m_wndToolBar, nullptr, nullptr, RBBS_NOGRIPPER | RBBS_USECHEVRON);
-	m_wndReBar.AddBar(&m_wndGeomToolBar, nullptr, nullptr, RBBS_NOGRIPPER);
-	m_wndReBar.AddBar(&m_wndColorToolBar, nullptr, nullptr, RBBS_NOGRIPPER);
+	m_wndReBar.AddBar(&m_wndToolBar, nullptr, nullptr, RBBS_GRIPPERALWAYS | RBBS_USECHEVRON);
+	m_wndReBar.AddBar(&m_wndGeomToolBar, nullptr, nullptr, RBBS_NOGRIPPER | RBBS_FIXEDSIZE);
+	//m_wndReBar.AddBar(&m_wndColorToolBar, nullptr, nullptr, RBBS_NOGRIPPER);
 	//RecalcLayout();
 
 	//DockControlBar(&m_wndToolBar);
@@ -118,7 +118,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	//int bandIndex2 = m_wndReBar.GetReBarCtrl().IDToIndex(m_wndGeomToolBar.GetDlgCtrlID());
 
 	auto bandCount = m_wndReBar.GetReBarCtrl().GetBandCount();
-	m_wndReBar.GetReBarCtrl().MaximizeBand(1);
+	//m_wndReBar.GetReBarCtrl().MaximizeBand(1);
 
 	//// TODO: Delete these three lines if you don't want the toolbar to be dockable
 	//m_wndToolBar.EnableDocking(CBRS_ALIGN_ANY);
