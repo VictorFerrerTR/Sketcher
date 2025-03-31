@@ -31,6 +31,7 @@ BEGIN_MESSAGE_MAP(CSketcherDoc, CDocument)
     ON_COMMAND(ID_ELEMENT_RECTANGLE, &CSketcherDoc::OnElementRectangle)
     ON_COMMAND(ID_ELEMENT_CIRCLE, &CSketcherDoc::OnElementCircle)
     ON_COMMAND(ID_ELEMENT_CURVE, &CSketcherDoc::OnElementCurve)
+    ON_COMMAND(IDC_OPEN_HOMEPAGE, &CSketcherDoc::OnHomePageBtnClicked)
     ON_UPDATE_COMMAND_UI(ID_COLOR_BLACK, &CSketcherDoc::OnUpdateColorBlack)
     ON_UPDATE_COMMAND_UI(ID_COLOR_RED, &CSketcherDoc::OnUpdateColorRed)
     ON_UPDATE_COMMAND_UI(ID_COLOR_GREEN, &CSketcherDoc::OnUpdateColorGreen)
@@ -192,6 +193,11 @@ void CSketcherDoc::OnElementCircle()
 void CSketcherDoc::OnElementCurve()
 {
     m_Element = ElementType::CURVE;
+}
+
+void CSketcherDoc::OnHomePageBtnClicked()
+{
+    TRACE0("Something happens here!!\n");
 }
 
 void CSketcherDoc::OnUpdateColorBlack(CCmdUI* pCmdUI)

@@ -216,6 +216,10 @@
     <ResourceCompile Include="Sketcher.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\bitmap1.bmp" />
+    <Image Include="res\bitmap3.bmp" />
+    <Image Include="res\homepage.bmp" />
+    <Image Include="res\icon1.ico" />
     <Image Include="res\Sketcher.ico" />
     <Image Include="res\SketcherDoc.ico" />
     <Image Include="res\Toolbar.bmp" />

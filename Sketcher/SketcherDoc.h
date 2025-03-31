@@ -57,6 +57,7 @@ public:
     afx_msg void OnElementRectangle();
     afx_msg void OnElementCircle();
     afx_msg void OnElementCurve();
+    afx_msg void OnHomePageBtnClicked();
     afx_msg void OnUpdateColorBlack(CCmdUI* pCmdUI);
     afx_msg void OnUpdateColorRed(CCmdUI* pCmdUI);
     afx_msg void OnUpdateColorGreen(CCmdUI* pCmdUI);

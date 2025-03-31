@@ -17,7 +17,7 @@ public:
 
 // Operations
 public:
-
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 // Overrides
 public:
 	virtual void OnDraw(CDC* pDC);  // overridden to draw this view
@@ -26,6 +26,7 @@ protected:
 	virtual BOOL OnPreparePrinting(CPrintInfo* pInfo);
 	virtual void OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo);
 	virtual void OnEndPrinting(CDC* pDC, CPrintInfo* pInfo);
+	virtual void DoDataExchange(CDataExchange* pDX);
 
 // Implementation
 public:
@@ -36,7 +37,7 @@ public:
 #endif
 
 protected:
-
+	CMFCButton m_simpleButton;
 // Generated message map functions
 protected:
 	DECLARE_MESSAGE_MAP()
