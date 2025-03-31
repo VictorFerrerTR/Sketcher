@@ -14,9 +14,9 @@
 
 // CMainFrame
 
-IMPLEMENT_DYNAMIC(CMainFrame, CMDIFrameWnd)
+IMPLEMENT_DYNAMIC(CMainFrame, CMDIFrameWndEx)
 
-BEGIN_MESSAGE_MAP(CMainFrame, CMDIFrameWnd)
+BEGIN_MESSAGE_MAP(CMainFrame, CMDIFrameWndEx)
     ON_WM_CREATE()
 END_MESSAGE_MAP()
 
@@ -42,7 +42,7 @@ CMainFrame::~CMainFrame()
 int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 
-    if (CMDIFrameWnd::OnCreate(lpCreateStruct) == -1)
+    if (CMDIFrameWndEx::OnCreate(lpCreateStruct) == -1)
         return -1;
 
     //if (!m_wndToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD | WS_VISIBLE | CBRS_TOP | CBRS_GRIPPER | CBRS_TOOLTIPS | CBRS_FLYBY | CBRS_SIZE_DYNAMIC) ||
@@ -66,7 +66,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
         return -1;      // fail to create
     }
 
-    if (!m_HomePageBtn.Create(_T(""), WS_VISIBLE | WS_CHILD | BS_OWNERDRAW, CRect(10, 10, 34, 34), this, IDC_OPEN_HOMEPAGE))
+    if (!m_HomePageBtn.Create(_T(""), WS_VISIBLE | WS_CHILD | BS_FLAT | BS_PUSHBUTTON, CRect(10, 10, 34, 33), this, IDC_OPEN_HOMEPAGE))
     {
         TRACE0("Failed to create toolbar\n");
         return -1;      // fail to create
@@ -93,12 +93,13 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
         AfxMessageBox(_T("Failed to load bitmap resource!"));
     }
 
-    if (!m_clientButton.Create(_T("Client 1"), WS_VISIBLE | WS_CHILD | BS_OWNERDRAW, CRect(10, 10, 104, 34), this, IDC_OPEN_CLIENT1))
+    if (!m_clientButton.Create(_T("Client 1"), WS_VISIBLE | WS_CHILD | BS_FLAT | BS_PUSHBUTTON, CRect(10, 10, 104, 29), this, IDC_OPEN_CLIENT1))
     {
         TRACE0("Failed to create toolbar\n");
         return -1;      // fail to create
     }
-
+    m_clientButton.ModifyStyle(WS_BORDER, 0); // Remove window border
+    m_clientButton.ModifyStyleEx(WS_EX_CLIENTEDGE, 0); // Remove extended styles (optional)
     //if (!m_wndGeomToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD | WS_VISIBLE | CBRS_ALIGN_TOP | CBRS_TOOLTIPS | CBRS_FLYBY) ||
     //	!m_wndGeomToolBar.LoadToolBar(IDR_TOOLBAR1))
     //{
@@ -116,12 +117,15 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 
     // Add all the bars
-    if (!m_wndReBar.Create(this, CBRS_HIDE_INPLACE, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | CBRS_TOP, AFX_IDW_REBAR))
+    if (!m_wndReBar.Create(this, CBRS_HIDE_INPLACE, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | CBRS_TOP))//, AFX_IDW_REBAR))
         return false;
-
-    m_wndReBar.AddBar(&m_wndToolBar, nullptr, nullptr, RBBS_GRIPPERALWAYS | RBBS_USECHEVRON );
-    m_wndReBar.AddBar(&m_clientButton, nullptr, nullptr, RBBS_NOGRIPPER | RBBS_HIDDEN);
+    m_wndReBar.AddBar(&m_wndToolBar, nullptr, nullptr, RBBS_GRIPPERALWAYS );
+    m_wndReBar.AddBar(&m_clientButton, nullptr, nullptr, RBBS_NOGRIPPER);
     m_wndReBar.AddBar(&m_HomePageBtn, nullptr, nullptr, RBBS_NOGRIPPER);
+
+    // TODO: Remove this if you don't want chevrons:
+    m_wndToolBar.EnableCustomizeButton(TRUE, -1, _T(""));
+
     //m_wndReBar.AddBar(&m_wndColorToolBar, nullptr, nullptr, RBBS_GRIPPERALWAYS);
     //RecalcLayout();
 
@@ -129,13 +133,13 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
     //m_wndToolBar.EnableDocking(0);
     //m_wndToolBar.SetBarStyle(m_wndToolBar.GetBarStyle() | CBRS_TOOLTIPS | CBRS_FLYBY);
 
-    CReBarCtrl& reBarCtrl = m_wndReBar.GetReBarCtrl();
-    int bandIndex2 = 1;
-    REBARBANDINFO bandInfo;
-    ZeroMemory(&bandInfo, sizeof(REBARBANDINFO));
-    bandInfo.cbSize = sizeof(REBARBANDINFO);
-    bandInfo.fMask = RBBIM_SIZE | RBBIM_IDEALSIZE | RBBIM_CHILD | RBBIM_CHILDSIZE ;
-    bool result = reBarCtrl.GetBandInfo(bandIndex2, &bandInfo);
+    //CReBarCtrl& reBarCtrl = m_wndReBar.GetReBarCtrl();
+    //int bandIndex2 = 1;
+    //REBARBANDINFO bandInfo;
+    //ZeroMemory(&bandInfo, sizeof(REBARBANDINFO));
+    //bandInfo.cbSize = sizeof(REBARBANDINFO);
+    //bandInfo.fMask = RBBIM_SIZE | RBBIM_IDEALSIZE | RBBIM_CHILD | RBBIM_CHILDSIZE ;
+    //bool result = reBarCtrl.GetBandInfo(bandIndex2, &bandInfo);
     //bandInfo.cxIdeal = 0;
     //bandInfo.cxMinChild = m_wndGeomToolBar.CalcFixedLayout(false, m_wndGeomToolBar.m_dwStyle & CBRS_ORIENT_HORZ).cx;
     //result = (BOOL)::DefWindowProc(m_wndReBar.m_hWnd, RB_SETBANDINFO, bandIndex2, (LPARAM)&bandInfo);//reBarCtrl.SetBandInfo(bandIndex2, &bandInfo);
@@ -151,6 +155,10 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
     //To fill the spaces betwen bands without gripper
     SetWindowTheme(m_wndReBar.GetSafeHwnd(), L" ", L" ");
+
+    EnableDocking(CBRS_ALIGN_ANY);
+    m_wndReBar.EnableDocking(CBRS_ALIGN_ANY);
+    DockPane(&m_wndReBar);
 
     //int bandIndex1 = m_wndReBar.GetReBarCtrl().IDToIndex(m_wndToolBar.GetDlgCtrlID());
     //int bandIndex2 = m_wndReBar.GetReBarCtrl().IDToIndex(m_wndGeomToolBar.GetDlgCtrlID());
@@ -169,7 +177,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 {
-    if (!CMDIFrameWnd::PreCreateWindow(cs))
+    if (!CMDIFrameWndEx::PreCreateWindow(cs))
         return FALSE;
     // TODO: Modify the Window class or styles here by modifying
     //  the CREATESTRUCT cs
@@ -182,12 +190,12 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 #ifdef _DEBUG
 void CMainFrame::AssertValid() const
 {
-    CMDIFrameWnd::AssertValid();
+    CMDIFrameWndEx::AssertValid();
 }
 
 void CMainFrame::Dump(CDumpContext& dc) const
 {
-    CMDIFrameWnd::Dump(dc);
+    CMDIFrameWndEx::Dump(dc);
 }
 #endif //_DEBUG
 

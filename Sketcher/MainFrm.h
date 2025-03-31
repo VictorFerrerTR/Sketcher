@@ -4,7 +4,7 @@
 
 #pragma once
 
-class CMainFrame : public CMDIFrameWnd
+class CMainFrame : public CMDIFrameWndEx
 {
 	DECLARE_DYNAMIC(CMainFrame)
 public:
@@ -29,10 +29,10 @@ public:
 #endif
 
 protected:  // control bar embedded members
-	CReBar            m_wndReBar;
-	CToolBar          m_wndToolBar;
-	CToolBar          m_wndGeomToolBar;
-	CToolBar          m_wndColorToolBar;
+	CMFCReBar         m_wndReBar;
+	CMFCToolBar       m_wndToolBar;
+	CMFCToolBar       m_wndGeomToolBar;
+	CMFCToolBar       m_wndColorToolBar;
 	CMFCButton        m_HomePageBtn;
 	CMFCButton        m_clientButton;
 	CStatusBar        m_wndStatusBar;
