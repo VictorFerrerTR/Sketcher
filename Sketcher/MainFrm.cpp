@@ -66,7 +66,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
         return -1;      // fail to create
     }
 
-    if (!m_HomePageBtn.Create(_T(""), WS_VISIBLE | WS_CHILD | BS_OWNERDRAW, CRect(10, 10, 34, 34), this, IDC_OPEN_HOMEPAGE))
+    if (!m_HomePageBtn.Create(_T(""), WS_VISIBLE | WS_CHILD | BS_OWNERDRAW, CRect(10, 10, 34, 30), this, IDC_OPEN_HOMEPAGE))
     {
         TRACE0("Failed to create toolbar\n");
         return -1;      // fail to create
@@ -85,7 +85,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
     if (hBitmap != nullptr)
     {
         m_HomePageBtn.SetImage(hBitmap, TRUE, hBitmap, TRUE, hBitmap);
-        m_HomePageBtn.SizeToContent();
+        //m_HomePageBtn.SizeToContent();
         m_HomePageBtn.Invalidate();
     }
     else
@@ -93,7 +93,13 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
         AfxMessageBox(_T("Failed to load bitmap resource!"));
     }
 
-    if (!m_clientButton.Create(_T("Client 1"), WS_VISIBLE | WS_CHILD | BS_OWNERDRAW, CRect(10, 10, 104, 34), this, IDC_OPEN_CLIENT1))
+    if (!m_clientButton.Create(_T("Client 1"), WS_VISIBLE | WS_CHILD | BS_OWNERDRAW, CRect(10, 10, 104, 30), this, IDC_OPEN_CLIENT1))
+    {
+        TRACE0("Failed to create toolbar\n");
+        return -1;      // fail to create
+    }
+
+    if (!m_clientButton2.Create(_T("Client 2"), WS_VISIBLE | WS_CHILD | BS_OWNERDRAW, CRect(10, 10, 104, 30), this, IDC_OPEN_CLIENT1))
     {
         TRACE0("Failed to create toolbar\n");
         return -1;      // fail to create
@@ -120,8 +126,9 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
         return false;
 
     m_wndReBar.AddBar(&m_wndToolBar, nullptr, nullptr, RBBS_GRIPPERALWAYS | RBBS_USECHEVRON );
-    m_wndReBar.AddBar(&m_clientButton, nullptr, nullptr, RBBS_NOGRIPPER | RBBS_HIDDEN);
-    m_wndReBar.AddBar(&m_HomePageBtn, nullptr, nullptr, RBBS_NOGRIPPER);
+    m_wndReBar.AddBar(&m_clientButton, nullptr, nullptr, RBBS_NOGRIPPER);
+    m_wndReBar.AddBar(&m_clientButton2, nullptr, nullptr, RBBS_NOGRIPPER);
+    m_wndReBar.AddBar(&m_HomePageBtn, nullptr, nullptr, RBBS_NOGRIPPER | RBBS_FIXEDSIZE);
     //m_wndReBar.AddBar(&m_wndColorToolBar, nullptr, nullptr, RBBS_GRIPPERALWAYS);
     //RecalcLayout();
 

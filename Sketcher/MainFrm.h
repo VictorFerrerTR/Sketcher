@@ -35,6 +35,7 @@ protected:  // control bar embedded members
 	CToolBar          m_wndColorToolBar;
 	CMFCButton        m_HomePageBtn;
 	CMFCButton        m_clientButton;
+	CMFCButton        m_clientButton2;
 	CStatusBar        m_wndStatusBar;
 
 // Generated message map functions
