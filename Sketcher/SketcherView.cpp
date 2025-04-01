@@ -57,49 +57,6 @@ int CSketcherView::OnCreate(LPCREATESTRUCT lpCreateStruct)
     if (CView::OnCreate(lpCreateStruct) == -1)
         return -1;
 
-    //m_simpleButton.Create(_T(""), WS_CHILD | WS_VISIBLE | BS_BITMAP/*BS_PUSHBUTTON*/, CRect(300, 100, 400, 150), this, IDC_BUTTON1);
-
-    //// Load the bitmap
-    //HBITMAP hBitmap = (HBITMAP)::LoadImage(
-    //    AfxGetInstanceHandle(),
-    //    MAKEINTRESOURCE(IDB_BITMAP2), // Replace with your bitmap resource ID
-    //    IMAGE_BITMAP,
-    //    0, 0,
-    //    LR_CREATEDIBSECTION | LR_DEFAULTCOLOR // Ensure it's device-independent
-    //);
-
-    //// Attach the bitmap to the CMFCButton
-    //if (hBitmap != nullptr)
-    //{
-    //    m_simpleButton.SetImage(hBitmap, TRUE, hBitmap, TRUE,hBitmap);
-    //    m_simpleButton.SizeToContent();
-    //    m_simpleButton.Invalidate();
-    //}
-    //else
-    //{
-    //    AfxMessageBox(_T("Failed to load bitmap resource!"));
-    //}
-
-    //HICON hBitmap = (HICON)::LoadImage(
-    //    AfxGetInstanceHandle(),
-    //    MAKEINTRESOURCE(IDR_MAINFRAME), // Icon resource ID
-    //    IMAGE_ICON,
-    //    32, 32, // Desired size of the icon
-    //    LR_DEFAULTCOLOR
-    //);
-
-    //if (hBitmap != nullptr)
-    //{
-    //    //m_simpleButton.ModifyStyle(0, BS_BITMAP);
-    //    m_simpleButton.SetImage(hBitmap); // TRUE indicates Auto Destroy for cleanup
-    //    m_simpleButton.SizeToContent(); // Adjust button size to match the bitmap dimensions
-    //    m_simpleButton.Invalidate();
-    //}
-    //else
-    //{
-    //    AfxMessageBox(_T("Failed to load bitmap!"));
-    //}
-
     return 0;
 }
 
