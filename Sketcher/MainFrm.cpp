@@ -45,20 +45,6 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
     if (CMDIFrameWndEx::OnCreate(lpCreateStruct) == -1)
         return -1;
 
-    //if (!m_wndToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD | WS_VISIBLE | CBRS_TOP | CBRS_GRIPPER | CBRS_TOOLTIPS | CBRS_FLYBY | CBRS_SIZE_DYNAMIC) ||
-    //	!m_wndToolBar.LoadToolBar(IDR_MAINFRAME))
-    //{
-    //	TRACE0("Failed to create toolbar\n");
-    //	return -1;      // fail to create
-    //}
-
-    //if (!m_geometryToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD | WS_VISIBLE | CBRS_TOP | CBRS_GRIPPER | CBRS_TOOLTIPS | CBRS_FLYBY | CBRS_SIZE_DYNAMIC) ||
-    //	!m_wndToolBar.LoadToolBar(IDR_TOOLBAR1))
-    //{
-    //	TRACE0("Failed to create toolbar\n");
-    //	return -1;      // fail to create
-    //}
-
     if (!m_wndToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD | WS_VISIBLE | CBRS_ALIGN_TOP | CBRS_TOOLTIPS | CBRS_FLYBY) ||
         !m_wndToolBar.LoadToolBar(IDR_MAINFRAME))
     {
@@ -100,19 +86,6 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
     }
     m_clientButton.ModifyStyle(WS_BORDER, 0); // Remove window border
     m_clientButton.ModifyStyleEx(WS_EX_CLIENTEDGE, 0); // Remove extended styles (optional)
-    //if (!m_wndGeomToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD | WS_VISIBLE | CBRS_ALIGN_TOP | CBRS_TOOLTIPS | CBRS_FLYBY) ||
-    //	!m_wndGeomToolBar.LoadToolBar(IDR_TOOLBAR1))
-    //{
-    //	TRACE0("Failed to create toolbar\n");
-    //	return -1;      // fail to create
-    //}
-
-    //if (!m_wndColorToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD | WS_VISIBLE | CBRS_ALIGN_TOP | CBRS_TOOLTIPS | CBRS_FLYBY) ||
-    //	!m_wndColorToolBar.LoadToolBar(IDR_TOOLBAR2))
-    //{
-    //	TRACE0("Failed to create toolbar\n");
-    //	return -1;      // fail to create
-    //}
 
 
 
@@ -121,29 +94,10 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
         return false;
     m_wndReBar.AddBar(&m_wndToolBar, nullptr, nullptr, RBBS_GRIPPERALWAYS );
     m_wndReBar.AddBar(&m_clientButton, nullptr, nullptr, RBBS_NOGRIPPER);
-    m_wndReBar.AddBar(&m_HomePageBtn, nullptr, nullptr, RBBS_NOGRIPPER);
+    m_wndReBar.AddBar(&m_HomePageBtn, nullptr, nullptr, RBBS_NOGRIPPER | RBBS_FIXEDSIZE);
 
     // TODO: Remove this if you don't want chevrons:
     m_wndToolBar.EnableCustomizeButton(TRUE, -1, _T(""));
-
-    //m_wndReBar.AddBar(&m_wndColorToolBar, nullptr, nullptr, RBBS_GRIPPERALWAYS);
-    //RecalcLayout();
-
-    //DockControlBar(&m_wndToolBar);
-    //m_wndToolBar.EnableDocking(0);
-    //m_wndToolBar.SetBarStyle(m_wndToolBar.GetBarStyle() | CBRS_TOOLTIPS | CBRS_FLYBY);
-
-    //CReBarCtrl& reBarCtrl = m_wndReBar.GetReBarCtrl();
-    //int bandIndex2 = 1;
-    //REBARBANDINFO bandInfo;
-    //ZeroMemory(&bandInfo, sizeof(REBARBANDINFO));
-    //bandInfo.cbSize = sizeof(REBARBANDINFO);
-    //bandInfo.fMask = RBBIM_SIZE | RBBIM_IDEALSIZE | RBBIM_CHILD | RBBIM_CHILDSIZE ;
-    //bool result = reBarCtrl.GetBandInfo(bandIndex2, &bandInfo);
-    //bandInfo.cxIdeal = 0;
-    //bandInfo.cxMinChild = m_wndGeomToolBar.CalcFixedLayout(false, m_wndGeomToolBar.m_dwStyle & CBRS_ORIENT_HORZ).cx;
-    //result = (BOOL)::DefWindowProc(m_wndReBar.m_hWnd, RB_SETBANDINFO, bandIndex2, (LPARAM)&bandInfo);//reBarCtrl.SetBandInfo(bandIndex2, &bandInfo);
-    //result = reBarCtrl.GetBandInfo(bandIndex2, &bandInfo);
 
     if (!m_wndStatusBar.Create(this))
     {
@@ -159,18 +113,6 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
     EnableDocking(CBRS_ALIGN_ANY);
     m_wndReBar.EnableDocking(CBRS_ALIGN_ANY);
     DockPane(&m_wndReBar);
-
-    //int bandIndex1 = m_wndReBar.GetReBarCtrl().IDToIndex(m_wndToolBar.GetDlgCtrlID());
-    //int bandIndex2 = m_wndReBar.GetReBarCtrl().IDToIndex(m_wndGeomToolBar.GetDlgCtrlID());
-
-    //auto bandCount = m_wndReBar.GetReBarCtrl().GetBandCount();
-    //m_wndReBar.GetReBarCtrl().MaximizeBand(0);
-
-    //// TODO: Delete these three lines if you don't want the toolbar to be dockable
-    //m_wndToolBar.EnableDocking(CBRS_ALIGN_ANY);
-    //EnableDocking(CBRS_ALIGN_ANY);
-    //DockControlBar(&m_wndToolBar);
-
 
     return 0;
 }
